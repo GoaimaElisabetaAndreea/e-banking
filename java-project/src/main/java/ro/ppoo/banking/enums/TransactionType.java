@@ -3,5 +3,6 @@ package ro.ppoo.banking.enums;
 public enum TransactionType {
     DEPOSIT,
     WITHDRAW,
-    TRANSFER,
+    TRANSFER_SENT,
+    TRANSFER_RECEIVED
 }

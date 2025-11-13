@@ -27,7 +27,7 @@
 
     <TextField fx:id="cnpField" prefWidth="200.0" maxWidth="200.0" promptText="CNP (Personal ID)"/>
 
-    <TextField fx:id="phoneField" prefWidth="200.0" maxWidth="200.0" promptText="Phone Number"/>
+    <PasswordField fx:id="passwordField" prefWidth="200.0" maxWidth="200.0" promptText="Password"/>
 
     <Label fx:id="errorLabel" style="-fx-text-fill: red;" visible="false" text="Invalid CNP or Phone Number."/>
 

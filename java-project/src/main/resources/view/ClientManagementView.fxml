@@ -26,6 +26,9 @@
         <columns>
             <TableColumn fx:id="firstNameColumn" prefWidth="120.0" text="First Name"/>
             <TableColumn fx:id="lastNameColumn" prefWidth="120.0" text="Last Name"/>
+
+            <TableColumn fx:id="cnpColumn" prefWidth="150.0" text="CNP"/>
+
             <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email"/>
             <TableColumn fx:id="phoneColumn" prefWidth="120.0" text="Phone"/>
         </columns>
@@ -33,6 +36,13 @@
 
     <HBox alignment="CENTER" spacing="10.0">
         <Button fx:id="manageAccountsButton" onAction="#handleManageAccounts" text="Manage Accounts"/>
+
+        <Button text="Deposit/Withdraw" onAction="#handleCashOperations" style="-fx-background-color: #FF9800; -fx-text-fill: white;"/>
+
+        <Button text="View Transactions" onAction="#handleViewHistory" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+
+        <Button text="Reveal CNP" onAction="#handleRevealCNP" style="-fx-background-color: #607D8B; -fx-text-fill: white;"/>
+        <Button text="Reset Pass" onAction="#handleResetPassword" style="-fx-background-color: #9C27B0; -fx-text-fill: white;"/>
         <Button fx:id="editClientButton" onAction="#handleEditClient" text="Edit Selected"/>
         <Button fx:id="deleteClientButton" onAction="#handleDeleteClient" text="Delete Selected" style="-fx-background-color: #f88;"/>
     </HBox>

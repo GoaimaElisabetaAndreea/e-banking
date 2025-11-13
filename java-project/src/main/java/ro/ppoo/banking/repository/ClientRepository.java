@@ -41,7 +41,8 @@ public class ClientRepository {
                 originalClient.setLastname(updatedClient.getLastname());
                 originalClient.setEmail(updatedClient.getEmail());
                 originalClient.setPhone(updatedClient.getPhone());
-
+                originalClient.setAccounts(updatedClient.getAccounts());
+                originalClient.setPassword(updatedClient.getPassword());
                 return;
             }
         }
@@ -60,7 +61,6 @@ public class ClientRepository {
             throw new RuntimeException(e);
         }
     }
-
 
     public void loadFromFile(){
         File file = new File(FILE_PATH);

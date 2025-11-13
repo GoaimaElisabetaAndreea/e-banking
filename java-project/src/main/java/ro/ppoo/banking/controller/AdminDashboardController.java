@@ -40,11 +40,27 @@ public class AdminDashboardController {
 
     @FXML
     void handleViewReports(ActionEvent event) {
-        System.out.println("Navigating to Reports page...");
-        // TODO: Aici vom crea și deschide ReportsView.fxml
-        // try {
-        //     showScene(event, "/view/ReportsView.fxml", "Reports and Statistics");
-        // } catch (IOException e) { e.printStackTrace(); }
+        System.out.println("Opening Reports Dashboard...");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportsView.fxml"));
+            Parent root = loader.load();
+
+            ReportsController controller = loader.getController();
+            controller.initData(appConfig);
+
+            // O deschidem într-o fereastră nouă (Stage separat), maximizată
+            Stage reportStage = new Stage();
+            reportStage.setTitle("Bank Reports & Statistics");
+            reportStage.setScene(new Scene(root));
+
+            // Facem fereastra mare ca să se vadă graficele bine
+            reportStage.setWidth(1000);
+            reportStage.setHeight(700);
+            reportStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

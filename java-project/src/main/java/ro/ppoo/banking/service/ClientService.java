@@ -24,6 +24,9 @@ public class ClientService {
             throw new IllegalArgumentException("This CNP is already registered");
         }
 
+        String encryptedPass = encryptionService.encrypt(client.getPassword());
+        client.setPassword(encryptedPass);
+
         client.setCNP(encryptedCNP);
         clientRepository.add(client);
     }
@@ -40,34 +43,44 @@ public class ClientService {
     public List<Client> getAll() {
         return clientRepository.getAll();
     }
-
+    public Client findClientByCNP(String encryptedCNP) {
+        return clientRepository.findByCNP(encryptedCNP);
+    }
 
     /**
      * Încearcă să autentifice un client pe baza CNP-ului și a numărului de telefon.
      * @param cnpPlaintext CNP-ul în clar, introdus de utilizator.
-     * @param phone Telefonul introdus de utilizator.
+     * @param passwordPlaintext Parola
      * @return Obiectul Client dacă datele se potrivesc, altfel null.
      */
-    public Client loginClient(String cnpPlaintext, String phone) {
+    public Client loginClient(String cnpPlaintext, String passwordPlaintext) {
         String encryptedCNP;
+        String encryptedPass;
         try {
             encryptedCNP = encryptionService.encrypt(cnpPlaintext);
+            encryptedPass = encryptionService.encrypt(passwordPlaintext);
         } catch (Exception e) {
             return null;
         }
 
         Client client = clientRepository.findByCNP(encryptedCNP);
 
-        if (client != null && client.getPhone().equals(phone)) {
+        if (client != null && client.getPassword().equals(encryptedPass)) {
             return client;
         }
 
         return null;
     }
 
+    public void updatePassword(Client client, String newPlainPassword) {
+        String encryptedPass = encryptionService.encrypt(newPlainPassword);
+        client.setPassword(encryptedPass);
+        clientRepository.update(client);
+    }
+
     public void delete(Client client) {
         if (client == null) {
-            throw new IllegalArgumentException("Clientul nu poate fi nul.");
+            throw new IllegalArgumentException("Client is null.");
         }
 
         clientRepository.destroy(client);

@@ -10,15 +10,17 @@ public class Client implements Serializable {
     private String phone;
     private List<BankAccount> accounts = new ArrayList<BankAccount>();
     private String CNP;
-    private boolean gdprAccepted;
+    private final boolean gdprAccepted;
+    private String password;
 
-    public Client(String firstname, String lastname, String email, String phone, String CNP, boolean gdprAccepted) {
+    public Client(String firstname, String lastname, String email, String phone, String CNP, boolean gdprAccepted, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.phone = phone;
         this.CNP = CNP;
         this.gdprAccepted = gdprAccepted;
+        this.password = password;
     }
 
     // copy constructor
@@ -29,11 +31,14 @@ public class Client implements Serializable {
         this.phone = other.phone;
         this.CNP = other.CNP;
         this.gdprAccepted = other.gdprAccepted;
+        this.password = other.password;
         this.accounts = new ArrayList<>();
         for(BankAccount account : other.accounts){
             this.accounts.add(new BankAccount(account));
         }
     }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
     public String getFirstname() {
         return firstname;

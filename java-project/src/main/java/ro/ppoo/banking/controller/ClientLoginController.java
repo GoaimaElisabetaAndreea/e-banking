@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ro.ppoo.banking.config.AppConfig;
@@ -20,13 +21,10 @@ public class ClientLoginController {
     private TextField cnpField;
 
     @FXML
-    private TextField phoneField;
-
-    @FXML
     private Label errorLabel;
 
     private AppConfig appConfig;
-
+    @FXML private PasswordField passwordField;
     public void initData(AppConfig config) {
         this.appConfig = config;
     }
@@ -34,38 +32,35 @@ public class ClientLoginController {
     @FXML
     void handleLogin(ActionEvent event) {
         String cnp = cnpField.getText();
-        String phone = phoneField.getText();
+        String pass = passwordField.getText();
 
-        if (cnp.isEmpty() || phone.isEmpty()) {
+        if (cnp.isEmpty() || pass.isEmpty()) {
             errorLabel.setText("Please fill in both fields.");
             errorLabel.setVisible(true);
             return;
         }
 
-        Client client = appConfig.getClientService().loginClient(cnp, phone);
+        Client client = appConfig.getClientService().loginClient(cnp, pass);
 
         if (client != null) {
-            System.out.println("Client login successful: " + client.getFirstname());
             errorLabel.setVisible(false);
 
-            // TODO: Deschide Dashboard-ul Clientului
-            // Aici vei naviga către o nouă scenă "ClientDashboardView.fxml"
-            // și îi vei trimite obiectul 'client' logat.
-            // try {
-            //     FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ClientDashboardView.fxml"));
-            //     Parent root = loader.load();
-            //     ClientDashboardController controller = loader.getController();
-            //     controller.initData(appConfig, client); // Trimitem și clientul
-            //
-            //     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            //     stage.setScene(new Scene(root));
-            //     stage.setTitle("Welcome, " + client.getFirstname());
-            //     stage.show();
-            // } catch (IOException e) { e.printStackTrace(); }
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ClientDashboardView.fxml"));
+                Parent root = loader.load();
 
+                ClientDashboardController controller = loader.getController();
+                controller.initData(appConfig, client);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("My Banking Dashboard");
+                stage.centerOnScreen();
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
-            // Eșec la login
-            errorLabel.setText("Invalid CNP or Phone Number.");
+            errorLabel.setText("Invalid CNP or Password.");
             errorLabel.setVisible(true);
         }
     }
