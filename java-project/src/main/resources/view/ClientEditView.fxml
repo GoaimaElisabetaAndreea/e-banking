@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" spacing="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17"
+      fx:controller="ro.ppoo.banking.controller.ClientEditController">
+
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+
+    <Label text="Edit Client Details">
+        <font>
+            <Font name="System Bold" size="24.0"/>
+        </font>
+    </Label>
+
+    <Label text="Modify the client's information:"/>
+
+    <HBox alignment="CENTER" spacing="10.0">
+        <TextField fx:id="firstnameField" promptText="First Name"/>
+        <TextField fx:id="lastnameField" promptText="Last Name"/>
+    </HBox>
+    <TextField fx:id="emailField" maxWidth="310.0" promptText="Email"/>
+    <TextField fx:id="phoneField" maxWidth="310.0" promptText="Phone Number"/>
+
+    <Label text="CNP (Cannot be edited)" style="-fx-font-style: italic;"/>
+    <TextField fx:id="cnpField" maxWidth="310.0" promptText="CNP" editable="false" focusTraversable="false"/>
+
+    <Label fx:id="errorLabel" style="-fx-text-fill: red;" visible="false" text="Error message here."/>
+
+    <HBox alignment="CENTER" spacing="10.0">
+        <Button onAction="#handleCancel" text="Cancel" prefWidth="120.0"/>
+        <Button fx:id="saveButton" onAction="#handleSave" text="Save Changes" prefWidth="120.0" defaultButton="true"/>
+    </HBox>
+</VBox>
