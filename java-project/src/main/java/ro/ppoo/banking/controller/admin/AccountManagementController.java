@@ -1,4 +1,4 @@
-package ro.ppoo.banking.controller;
+package ro.ppoo.banking.controller.admin;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -80,10 +80,7 @@ public class AccountManagementController {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             currentClient.getAccounts().remove(selectedAccount);
             appConfig.getClientService().update(currentClient);
-
             refreshTable();
-
-            System.out.println("Account deleted: " + selectedAccount.getIban());
         }
     }
 
@@ -115,7 +112,6 @@ public class AccountManagementController {
             refreshTable();
 
             String msg = "Account is now " + (selectedAccount.isBlocked() ? "BLOCKED" : "ACTIVE");
-            System.out.println(msg);
         }
     }
 

@@ -1,4 +1,4 @@
-package ro.ppoo.banking.controller;
+package ro.ppoo.banking.controller.admin;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 import ro.ppoo.banking.config.AppConfig;
+import ro.ppoo.banking.controller.RoleSelectionController;
 
 import java.io.IOException;
 

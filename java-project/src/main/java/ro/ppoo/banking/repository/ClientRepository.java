@@ -5,10 +5,24 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Gestionează persistența datelor utilizând fișiere binare.
+ * <p>
+ * Această clasă implementează mecanismul de salvare și încărcare a listei de clienți
+ * (împreună cu conturile și tranzacțiile lor) folosind serializarea Java.
+ * Asigură continuitatea datelor între rulările aplicației.
+ * </p>
+ */
 public class ClientRepository {
     private final List<Client> clients = new ArrayList<>();
     private final String FILE_PATH = "data/clients.dat";
 
+    /**
+     * Caută un client în baza de date locală pe baza CNP-ului criptat.
+     *
+     * @param CNP CNP-ul criptat al clientului căutat.
+     * @return Obiectul {@link ro.ppoo.banking.model.Client} dacă este găsit, altfel <code>null</code>.
+     */
     public Client findByCNP(String CNP){
         for (Client client : clients){
             if(client.getCNP().equals(CNP)){
@@ -32,6 +46,16 @@ public class ClientRepository {
         clients.add(client);
     }
 
+    /**
+     * Actualizează informațiile unui client existent.
+     * <p>
+     * Metoda caută clientul pe baza CNP-ului (care este imutabil) și îi actualizează
+     * toate celelalte câmpuri (nume, email, parolă, lista de conturi).
+     * Această metodă este esențială pentru salvarea modificărilor precum tranzacțiile noi.
+     * </p>
+     *
+     * @param updatedClient Obiectul client cu datele actualizate.
+     */
     public void update(Client updatedClient) {
         for (int i = 0; i < clients.size(); i++) {
             if (clients.get(i).getCNP().equals(updatedClient.getCNP())) {
@@ -56,7 +80,6 @@ public class ClientRepository {
     public void saveToFile(){
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
             oos.writeObject(clients);
-            System.out.println(FILE_PATH);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -73,7 +96,6 @@ public class ClientRepository {
             List<Client> loadClients = (List<Client>) ois.readObject();
             clients.clear();
             clients.addAll(loadClients);
-            System.out.println("Loaded " + clients.size() + " clients");
         } catch (EOFException e) {
             System.err.println("Empty file");
         } catch (IOException | ClassNotFoundException e) {

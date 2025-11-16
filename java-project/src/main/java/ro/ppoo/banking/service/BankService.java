@@ -11,6 +11,13 @@ import ro.ppoo.banking.repository.ClientRepository;
 import java.time.LocalDate;
 import java.util.Random;
 
+/**
+ * Gestionează operațiunile bancare principale și logica tranzacțională.
+ * <p>
+ * Această clasă acționează ca un intermediar între interfața grafică și datele persistente,
+ * asigurând integritatea tranzacțiilor, conversia valutară și validarea fondurilor.
+ * </p>
+ */
 public class BankService {
 
     private final ClientRepository clientRepository;
@@ -29,6 +36,25 @@ public class BankService {
         clientRepository.update(client);
     }
 
+    /**
+     * Realizează un transfer de fonduri între două conturi bancare.
+     * <p>
+     * Metoda efectuează următorii pași:
+     * <ol>
+     * <li>Identifică clienții și conturile pe baza IBAN-urilor.</li>
+     * <li>Verifică dacă conturile sunt active (neblocate) și dacă există fonduri suficiente.</li>
+     * <li>Calculează suma convertită dacă transferul este între valute diferite (ex: EUR -> RON).</li>
+     * <li>Actualizează soldurile și creează două înregistrări de tranzacție (una pentru expeditor, una pentru destinatar).</li>
+     * <li>Salvează modificările în repository.</li>
+     * </ol>
+     * </p>
+     *
+     * @param fromIban IBAN-ul contului sursă.
+     * @param toIban   IBAN-ul contului destinație.
+     * @param amount   Suma de transferat (în moneda contului sursă).
+     * @param details  Descrierea tranzacției oferită de utilizator (ex: "Plată factură").
+     * @throws IllegalArgumentException Dacă conturile nu există, sunt blocate sau soldul este insuficient.
+     */
     public void transferMoney(String fromIban, String toIban, double amount, String details) {
         if (amount <= 0) throw new IllegalArgumentException("Amount must be positive.");
 
@@ -120,6 +146,12 @@ public class BankService {
         return sb.toString();
     }
 
+    /**
+     * Alimentează un cont bancar cu o sumă de bani (Simulare depunere numerar la ghișeu/ATM).
+     *
+     * @param iban   IBAN-ul contului unde se face depunerea.
+     * @param amount Suma depusă (trebuie să fie pozitivă).
+     */
     public void deposit(String iban, double amount) {
         if (amount <= 0) throw new IllegalArgumentException("Amount must be positive.");
 
@@ -128,7 +160,6 @@ public class BankService {
 
         BankAccount account = getAccountFromClient(client, iban);
         account.setBalance(account.getBalance() + amount);
-
         String clientName = client.getFirstname() + " " + client.getLastname();
 
         Transaction transaction = new Transaction(
@@ -138,13 +169,10 @@ public class BankService {
                 TransactionType.DEPOSIT,
                 null, account,
                 "ATM Deposit", clientName,
-                "Cash Deposit at ATM" // DETAILS
+                "Cash Deposit at ATM"
         );
-
         account.getTransactions().add(transaction);
-
         clientRepository.update(client);
-        System.out.println("Deposit successful: " + amount + " to " + iban);
     }
 
     public void withdraw(String iban, double amount) {

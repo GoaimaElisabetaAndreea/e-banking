@@ -1,4 +1,4 @@
-package ro.ppoo.banking.controller;
+package ro.ppoo.banking.controller.client;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import ro.ppoo.banking.config.AppConfig;
+import ro.ppoo.banking.controller.RoleSelectionController;
+import ro.ppoo.banking.controller.TransactionsController;
 import ro.ppoo.banking.enums.AccountType;
 import ro.ppoo.banking.enums.Currency;
 import ro.ppoo.banking.model.BankAccount;

@@ -1,4 +1,4 @@
-package ro.ppoo.banking.ui; // Asigură-te că pachetul este corect
+package ro.ppoo.banking.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,12 +27,11 @@ public class Main extends Application {
         RoleSelectionController controller = loader.getController();
         controller.initData(appConfig);
 
-        primaryStage.setTitle("PPOO Bank - Welcome!");
+        primaryStage.setTitle(" Welcome!");
         primaryStage.setScene(new Scene(root, 400, 300));
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(event -> {
-            System.out.println("Saving data on close...");
             appConfig.onExit();
         });
     }

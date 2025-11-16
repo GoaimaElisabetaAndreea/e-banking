@@ -1,4 +1,4 @@
-package ro.ppoo.banking.controller;
+package ro.ppoo.banking.controller.admin;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ro.ppoo.banking.config.AppConfig;
+import ro.ppoo.banking.controller.client.ClientRegistrationController;
+import ro.ppoo.banking.controller.ReportsController;
+import ro.ppoo.banking.controller.RoleSelectionController;
 
 import java.io.IOException;
 
@@ -21,7 +24,6 @@ public class AdminDashboardController {
 
     @FXML
     void handleManageClients(ActionEvent event) {
-        System.out.println("Navigating to Client Management page...");
         try {
             showScene(event, "/view/ClientManagementView.fxml", "Client Management");
         } catch (IOException e) {
@@ -40,7 +42,6 @@ public class AdminDashboardController {
 
     @FXML
     void handleViewReports(ActionEvent event) {
-        System.out.println("Opening Reports Dashboard...");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ReportsView.fxml"));
             Parent root = loader.load();
@@ -48,12 +49,10 @@ public class AdminDashboardController {
             ReportsController controller = loader.getController();
             controller.initData(appConfig);
 
-            // O deschidem într-o fereastră nouă (Stage separat), maximizată
             Stage reportStage = new Stage();
             reportStage.setTitle("Bank Reports & Statistics");
             reportStage.setScene(new Scene(root));
 
-            // Facem fereastra mare ca să se vadă graficele bine
             reportStage.setWidth(1000);
             reportStage.setHeight(700);
             reportStage.show();

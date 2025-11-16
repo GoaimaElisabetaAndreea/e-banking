@@ -1,4 +1,4 @@
-package ro.ppoo.banking.controller;
+package ro.ppoo.banking.controller.admin;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ro.ppoo.banking.config.AppConfig;
+import ro.ppoo.banking.controller.TransactionsController;
 import ro.ppoo.banking.enums.TransactionType;
 import ro.ppoo.banking.model.BankAccount;
 import ro.ppoo.banking.model.Client;
@@ -61,7 +62,7 @@ public class ClientManagementController implements Initializable {
 
                 if (plainCnp.length() > 4) {
                     String last4 = plainCnp.substring(plainCnp.length() - 4);
-                    return new SimpleStringProperty("****" + last4);
+                    return new SimpleStringProperty("*********" + last4);
                 } else {
                     return new SimpleStringProperty(plainCnp);
                 }

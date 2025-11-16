@@ -48,10 +48,13 @@ public class ClientService {
     }
 
     /**
-     * Încearcă să autentifice un client pe baza CNP-ului și a numărului de telefon.
-     * @param cnpPlaintext CNP-ul în clar, introdus de utilizator.
+     * Autentifică un client pe baza CNP-ului și a parolei.
+     * CNP-ul introdus este criptat înainte de a fi comparat cu datele din repository.
+     *
+     * @param cnpPlaintext CNP-ul în format text simplu, introdus de utilizator.
      * @param passwordPlaintext Parola
-     * @return Obiectul Client dacă datele se potrivesc, altfel null.
+     * @return Obiectul {@link Client} dacă datele sunt valide, sau null dacă autentificarea eșuează.
+     * @see ro.ppoo.banking.service.security.DataEncryptionService#encrypt(String)
      */
     public Client loginClient(String cnpPlaintext, String passwordPlaintext) {
         String encryptedCNP;

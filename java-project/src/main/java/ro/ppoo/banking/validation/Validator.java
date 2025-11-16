@@ -6,6 +6,11 @@ import ro.ppoo.banking.model.Client;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+/**
+ * Clasă utilitară responsabilă cu validarea datelor de intrare.
+ * Conține metode statice pentru verificarea formatului și integrității informațiilor
+ * introduse de utilizatori (CNP, Email, Telefon).
+ */
 public class Validator {
 
     private Validator(){}
@@ -36,6 +41,22 @@ public class Validator {
         }
     }
 
+    /**
+     * Validează un Cod Numeric Personal (CNP) conform standardului românesc.
+     * <p>
+     * Verificarea include:
+     * <ul>
+     * <li>Lungimea exactă de 13 cifre.</li>
+     * <li>Validarea componentei de sex și secol (prima cifră).</li>
+     * <li>Validarea datei de naștere extrase din CNP.</li>
+     * <li><b>Calculul cifrei de control (Checksum):</b> Se utilizează vectorul de control
+     * Constant <code>279146358279</code> pentru a verifica ultima cifră a CNP-ului.</li>
+     * </ul>
+     * </p>
+     *
+     * @param cnp String-ul reprezentând CNP-ul de validat.
+     * @return <code>true</code> dacă CNP-ul este valid, altfel <code>false</code>.
+     */
     public static boolean validateCnp(String cnp) {
         if (cnp == null || !cnp.matches("\\d{13}")) return false;
 

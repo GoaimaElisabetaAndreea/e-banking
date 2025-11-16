@@ -7,6 +7,17 @@ import ro.ppoo.banking.service.ClientService;
 import ro.ppoo.banking.service.CurrencyService;
 import ro.ppoo.banking.service.security.DataEncryptionService;
 
+/**
+ * Clasa centrală de configurare a aplicației (Dependency Injection Container simplificat).
+ * <p>
+ * Responsabilități:
+ * <ul>
+ * <li>Încarcă variabilele de mediu din fișierul <code>.env</code>.</li>
+ * <li>Inițializează serviciile singleton (Encryption, Repository, BankService).</li>
+ * <li>Gestionează ciclul de viață al aplicației (ex: salvarea datelor la închidere).</li>
+ * </ul>
+ * </p>
+ */
 public class AppConfig {
     private final Dotenv dotenv;
     private final DataEncryptionService encryptionService;
@@ -39,6 +50,10 @@ public class AppConfig {
         return dotenv.get(key);
     }
 
+    /**
+     * Metodă apelată la închiderea aplicației pentru a asigura persistența datelor.
+     * Salvează starea curentă a tuturor clienților în fișierul binar.
+     */
     public void onExit(){
         clientRepository.saveToFile();
     }

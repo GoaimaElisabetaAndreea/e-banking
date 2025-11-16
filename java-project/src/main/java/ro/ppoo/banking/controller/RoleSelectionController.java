@@ -9,6 +9,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ro.ppoo.banking.config.AppConfig;
+import ro.ppoo.banking.controller.admin.AdminLoginController;
+import ro.ppoo.banking.controller.client.ClientLoginController;
+import ro.ppoo.banking.controller.client.ClientRegistrationController;
 
 import java.io.IOException;
 

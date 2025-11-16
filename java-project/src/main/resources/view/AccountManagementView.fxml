@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 <VBox alignment="TOP_CENTER" spacing="15.0" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ro.ppoo.banking.controller.AccountManagementController"
+      fx:controller="ro.ppoo.banking.controller.admin.AccountManagementController"
       prefWidth="600.0" prefHeight="400.0">
 
     <padding>

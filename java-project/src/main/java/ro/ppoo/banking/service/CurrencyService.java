@@ -28,7 +28,6 @@ public class CurrencyService {
                     rates.put(key, rate);
                 }
             }
-            System.out.println("Loaded " + rates.size() + " exchange rates.");
         } catch (IOException e) {
             System.err.println("Could not load exchange rates: " + e.getMessage());
         }

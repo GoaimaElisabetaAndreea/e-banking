@@ -1,4 +1,4 @@
-package ro.ppoo.banking.controller;
+package ro.ppoo.banking.controller.admin;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
